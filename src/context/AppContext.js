@@ -14,12 +14,15 @@ export const AppProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    // This is to add the dateString to all the properties objects
     const newItemsWithDateString = items.map((item) => {
+      // This is to add the dateString to all the properties objects
+      // Added this so we don't have to create the dateStrings on the fly
+      // When rendering the table
       const dateString = format(new Date(item.properties.time), "MMM dd, yyyy, p");
       item.properties.dateString = dateString;
 
-      // Adding a distance property to better sort by place using distance
+      // Adding a distance property to all the properties objects
+      // Added this so we can more easily sort the title column by distance
       let distance = item.properties.place.match(/\d/g);
       distance = distance.join("");
       item.properties.distance = parseInt(distance);
@@ -67,14 +70,12 @@ export const AppProvider = ({ children }) => {
   const sortByTime = useCallback(() => {
     const { time } = sortState;
     if (time === "asc") {
-      console.log("HERE desc");
       setItems(sortByDescending(items, "time"));
       setSortState({
         ...sortState,
         time: "desc",
       });
     } else if (time === "desc") {
-      console.log();
       setItems(sortByAscending(items, "time"));
       setSortState({
         ...sortState,

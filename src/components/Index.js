@@ -34,7 +34,6 @@ const Table = styled.table`
 
 const Index = () => {
   const { items, pageTitle, sortByTitle, sortByMagnitude, sortByTime } = useContext(AppContext);
-  console.log("data", items);
   return (
     <div>
       <PageTitle>{pageTitle}</PageTitle>

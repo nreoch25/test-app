@@ -29,9 +29,7 @@ const Detail = () => {
   const slug = useParams();
   const { items } = useContext(AppContext);
   const item = items.find((item) => item.id === slug.id);
-  console.log("ITEM", item);
 
-  console.log("slug", slug);
   return (
     <div>
       <Table>

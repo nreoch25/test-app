@@ -37,10 +37,9 @@ const ProfileHead = styled.h3`
 
 const Profile = () => {
   const { profile } = useContext(AppContext);
-  console.log("PROFILE", profile);
   return (
     <Fragment>
-      <ProfileHead style={{ textAlign: "center" }}>Profile</ProfileHead>
+      <ProfileHead>Profile</ProfileHead>
       <ProfileLayout>
         <div className="mr-8">
           <img className="w-130" src={profile.avatarImage} alt="" />

@@ -27,8 +27,8 @@ const App = () => {
       <Header />
       <Switch>
         <Route exact path="/" component={Index} />
-        <Route path="/profile" component={Profile} />
-        <Route path="/detail/:id" component={Detail} />
+        <Route exact path="/profile" component={Profile} />
+        <Route exact path="/detail/:id" component={Detail} />
         <Route component={Error} />
       </Switch>
     </main>

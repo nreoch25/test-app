@@ -32,16 +32,19 @@ const Title = styled.h1`
 `;
 
 const Header = () => {
-  const { site, profile } = useContext(AppContext);
+  const {
+    site: { logoImage, title },
+    profile: { firstName },
+  } = useContext(AppContext);
   return (
     <AppHeader>
       <LogoImage>
         <Link to="/">
-          <img src={site.logoImage} alt="logo image" className="logo-image" />
+          <img src={logoImage} alt="logo image" className="logo-image" />
         </Link>
       </LogoImage>
-      <Title style={{ flex: 1, justifyContent: "center" }}>{site.title}</Title>
-      <Link to="/profile">Welcome {profile.firstName}</Link>
+      <Title>{title}</Title>
+      <Link to="/profile">Welcome {firstName}</Link>
     </AppHeader>
   );
 };
