@@ -21,6 +21,7 @@ const LogoImage = styled.div`
 const Title = styled.h1`
   flex: 1;
   text-align: center;
+  color: var(--color-dark-grey);
 `;
 
 const Header = () => {
