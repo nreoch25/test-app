@@ -33,7 +33,7 @@ const Table = styled.table`
 `;
 
 const Index = () => {
-  const { items, pageTitle, sortByTitle, sortByMagnitude } = useContext(AppContext);
+  const { items, pageTitle, sortByTitle, sortByMagnitude, sortByTime } = useContext(AppContext);
   console.log("data", items);
   return (
     <div>
@@ -47,7 +47,9 @@ const Index = () => {
             <th onClick={sortByMagnitude} className="pointer">
               Magnitude
             </th>
-            <th>Time</th>
+            <th onClick={sortByTime} className="pointer">
+              Time
+            </th>
           </tr>
         </thead>
         <tbody>

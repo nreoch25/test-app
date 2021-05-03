@@ -10,6 +10,7 @@ export const AppProvider = ({ children }) => {
   const [sortState, setSortState] = useState({
     title: "initial",
     magnitude: "initial",
+    time: "desc",
   });
 
   useEffect(() => {
@@ -17,6 +18,12 @@ export const AppProvider = ({ children }) => {
     const newItemsWithDateString = items.map((item) => {
       const dateString = format(new Date(item.properties.time), "MMM dd, yyyy, p");
       item.properties.dateString = dateString;
+
+      // Adding a distance property to better sort by place using distance
+      let distance = item.properties.place.match(/\d/g);
+      distance = distance.join("");
+      item.properties.distance = parseInt(distance);
+
       return item;
     });
 
@@ -25,15 +32,14 @@ export const AppProvider = ({ children }) => {
 
   const sortByTitle = useCallback(() => {
     const { title } = sortState;
-    console.log("TITLE", title);
     if (title === "initial" || title === "desc") {
-      setItems(sortByAscending(items, "place"));
+      setItems(sortByAscending(items, "distance"));
       setSortState({
         ...sortState,
         title: "asc",
       });
     } else if (title === "asc") {
-      setItems(sortByDescending(items, "place"));
+      setItems(sortByDescending(items, "distance"));
       setSortState({
         ...sortState,
         title: "desc",
@@ -43,7 +49,6 @@ export const AppProvider = ({ children }) => {
 
   const sortByMagnitude = useCallback(() => {
     const { magnitude } = sortState;
-    console.log("magnitude", magnitude);
     if (magnitude === "initial" || magnitude === "desc") {
       setItems(sortByAscending(items, "mag"));
       setSortState({
@@ -58,7 +63,25 @@ export const AppProvider = ({ children }) => {
       });
     }
   }, [sortState.magnitude, items]);
-  // const sortByDate = () => {};
+
+  const sortByTime = useCallback(() => {
+    const { time } = sortState;
+    if (time === "asc") {
+      console.log("HERE desc");
+      setItems(sortByDescending(items, "time"));
+      setSortState({
+        ...sortState,
+        time: "desc",
+      });
+    } else if (time === "desc") {
+      console.log();
+      setItems(sortByAscending(items, "time"));
+      setSortState({
+        ...sortState,
+        time: "asc",
+      });
+    }
+  }, [sortState.time, items]);
 
   const value = {
     site: data.site,
@@ -68,7 +91,7 @@ export const AppProvider = ({ children }) => {
     setItems,
     sortByTitle,
     sortByMagnitude,
-    // sortByDate,
+    sortByTime,
   };
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };

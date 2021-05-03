@@ -10,6 +10,13 @@ const AppHeader = styled.div`
   background-color: var(--color-grey);
   padding-left: 15px;
   padding-right: 15px;
+  a:link {
+    color: var(--color-dark-blue);
+    font-weight: bold;
+  }
+  a:visited {
+    color: var(--color-purple);
+  }
 `;
 
 const LogoImage = styled.div`
@@ -26,7 +33,6 @@ const Title = styled.h1`
 
 const Header = () => {
   const { site, profile } = useContext(AppContext);
-  console.log("PROFILE", profile);
   return (
     <AppHeader>
       <LogoImage>
