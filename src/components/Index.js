@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import AppContext from "../context/AppContext";
@@ -10,16 +9,31 @@ const PageTitle = styled.h3`
 `;
 
 const Table = styled.table`
-  width: 50%;
   margin: 10px auto;
   text-align: center;
   .align-left {
     text-align: left;
   }
+  th {
+    color: var(--color-darker-grey);
+  }
+  td {
+    color: var(--color-darker-grey);
+  }
+  a:link {
+    color: var(--color-dark-blue);
+    font-weight: bold;
+  }
+  a:visited {
+    color: var(--color-purple);
+  }
+  .pointer {
+    cursor: pointer;
+  }
 `;
 
 const Index = () => {
-  const { site, items, pageTitle } = useContext(AppContext);
+  const { items, pageTitle, sortByTitle, sortByMagnitude } = useContext(AppContext);
   console.log("data", items);
   return (
     <div>
@@ -27,14 +41,17 @@ const Index = () => {
       <Table>
         <thead>
           <tr>
-            <th>Title</th>
-            <th>Magnitude</th>
+            <th onClick={sortByTitle} className="pointer">
+              Title
+            </th>
+            <th onClick={sortByMagnitude} className="pointer">
+              Magnitude
+            </th>
             <th>Time</th>
           </tr>
         </thead>
         <tbody>
           {items.map((item) => {
-            var date = format(new Date(item.properties.time), "MMM dd, yyyy, p");
             return (
               <tr key={item.id}>
                 <td className="align-left">
@@ -42,7 +59,7 @@ const Index = () => {
                 </td>
 
                 <td>{item.properties.mag}</td>
-                <td>{date}</td>
+                <td>{item.properties.dateString}</td>
               </tr>
             );
           })}
